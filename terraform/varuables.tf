@@ -15,7 +15,7 @@ variable "key_name" {
 }
 
 variable "public_key_path" {
-  default = "/home/ahmed/.ssh/id_rsa.pub"
+  default = "./id_rsa.pub"
 }
 
 variable "private_key_path" {
