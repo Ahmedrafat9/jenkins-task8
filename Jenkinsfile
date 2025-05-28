@@ -13,18 +13,19 @@ pipeline {
     stage('Terraform Apply') {
       steps {
         withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: 'aws-creds'
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'aws-creds'
         ]]) {
-            dir(terraform) {
-                sh '''
-                    terraform init
-                    terraform apply -auto-approve
-            '''
-          }
-        }
-      }
+        dir('terraform') {
+            sh '''
+                terraform init
+                terraform apply -auto-approve
+                '''
+                }
+            }
+         }
     }
+
 
     stage('Get EC2 IP') {
       steps {
