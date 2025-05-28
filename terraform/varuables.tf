@@ -11,7 +11,7 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  default = "key-unique-name-1234"
+  default = "blogkey"
 }
 
 
