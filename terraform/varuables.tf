@@ -15,11 +15,11 @@ variable "key_name" {
 }
 
 variable "public_key_path" {
-  default = "~/.ssh/id_rsa.pub"
+  default = "/home/ahmed/.ssh/id_rsa.pub"
 }
 
 variable "private_key_path" {
-  default = "~/.ssh/id_rsa"
+  default = "/home/ahmed/.ssh/id_rsa"
 }
 
 variable "ssh_user" {
