@@ -17,6 +17,10 @@ variable "key_name" {
 variable "public_key_path" {
   default = "./id_rsa.pub"
 }
+variable "private_key_path" {
+  description = "Path to the private SSH key"
+  default     = "/home/ahmed/.ssh/id_rsa"  # or wherever your private key is
+}
 
 variable "ssh_user" {
   default = "ec2-user"
