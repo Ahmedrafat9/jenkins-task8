@@ -7,6 +7,9 @@ pipeline {
     ANSIBLE_DIR = "ansible"
     SSH_PRIVATE_KEY = credentials('blogkey')  // your SSH private key credential ID
   }
+environment {
+  ANSIBLE_HOST_KEY_CHECKING = 'False'
+}
 
   stages {
     stage('Terraform Apply') {
@@ -46,9 +49,8 @@ ${env.EC2_IP} ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/id_rsa
 
     stage('Run Ansible Playbook') {
       steps {
-        sh """
-          ansible-playbook -i ${ANSIBLE_DIR}/inventory.ini ${ANSIBLE_DIR}/playbook.yml
-        """
+        sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml'
+        
       }
     }
   }
