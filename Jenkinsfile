@@ -5,7 +5,7 @@ pipeline {
     AWS_REGION = "us-east-1"
     TF_DIR = "terraform"
     ANSIBLE_DIR = "ansible"
-    SSH_PRIVATE_KEY = credentials('jenkins-ssh-key') // stored in Jenkins credentials
+    SSH_PRIVATE_KEY = credentials('blogkey') // stored in Jenkins credentials
   }
 
   stages {
