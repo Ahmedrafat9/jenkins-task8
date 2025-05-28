@@ -20,7 +20,7 @@ variable "public_key_path" {
 }
 variable "private_key_path" {
   description = "Path to the private SSH key"
-  default     = "/home/ahmed/.ssh/id_rsa"  # or wherever your private key is
+  default     = "/var/lib/jenkins/.ssh/id_rsa"  # or wherever your private key is
 }
 
 variable "ssh_user" {
