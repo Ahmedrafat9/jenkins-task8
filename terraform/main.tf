@@ -10,8 +10,7 @@ resource "aws_key_pair" "jenkins_key" {
 resource "aws_instance" "jenkins_ec2" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  key_name      = aws_key_pair.jenkins_key.key_name
-
+  key_name      = "key-unique-name-1234"  
   tags = {
     Name = "jenkins-ansible-instance"
   }
