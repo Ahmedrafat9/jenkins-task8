@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git ''
+        git 'https://github.com/Ahmedrafat9/jenkins-task8.git'
       }
     }
 
