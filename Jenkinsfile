@@ -16,10 +16,12 @@ pipeline {
           $class: 'AmazonWebServicesCredentialsBinding',
           credentialsId: 'aws-creds'
         ]]) {
-          sh '''
-            terraform init
-            terraform apply -auto-approve
-          '''
+            dir(terraform) {
+                sh '''
+                    terraform init
+                    terraform apply -auto-approve
+            '''
+          }
         }
       }
     }
