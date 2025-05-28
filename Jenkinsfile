@@ -10,11 +10,16 @@ pipeline {
 
   stages {
     
-    stage('Terraform Init & Apply') {
+    stage('Terraform Apply') {
       steps {
-        dir("${TF_DIR}") {
-          sh 'terraform init'
-          sh 'terraform apply -auto-approve'
+        withCredentials([[
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: 'aws-creds'
+        ]]) {
+          sh '''
+            terraform init
+            terraform apply -auto-approve
+          '''
         }
       }
     }
