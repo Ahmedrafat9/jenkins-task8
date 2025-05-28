@@ -9,12 +9,7 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/Ahmedrafat9/jenkins-task8.git'
-      }
-    }
-
+    
     stage('Terraform Init & Apply') {
       steps {
         dir("${TF_DIR}") {
