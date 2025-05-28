@@ -5,30 +5,29 @@ pipeline {
     AWS_REGION = "us-east-1"
     TF_DIR = "terraform"
     ANSIBLE_DIR = "ansible"
-    SSH_PRIVATE_KEY = credentials('blogkey') // stored in Jenkins credentials
+    SSH_PRIVATE_KEY = credentials('blogkey') // Jenkins-managed SSH private key
   }
 
   stages {
-    
     stage('Terraform Apply') {
       steps {
         withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'aws-creds'
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: 'aws-creds'
         ]]) {
-        dir('terraform') {
+          dir(TF_DIR) {
             sh '''
-                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+              export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+              export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+              export AWS_REGION=$AWS_REGION
 
-                terraform init
-                terraform apply -auto-approve
-                '''
-                }
-            }
-         }
+              terraform init
+              terraform apply -auto-approve
+            '''
+          }
+        }
+      }
     }
-
 
     stage('Get EC2 IP') {
       steps {
@@ -41,6 +40,7 @@ pipeline {
 
     stage('Create Ansible Inventory') {
       steps {
+        // Here you may want to write the SSH key to a file Jenkins can access or use the SSH agent plugin.
         writeFile file: "${ANSIBLE_DIR}/inventory.ini", text: """
 [ec2]
 ${env.EC2_IP} ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/id_rsa
