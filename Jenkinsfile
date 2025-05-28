@@ -6,10 +6,8 @@ pipeline {
     TF_DIR = "terraform"
     ANSIBLE_DIR = "ansible"
     SSH_PRIVATE_KEY = credentials('blogkey')  // your SSH private key credential ID
+    ANSIBLE_HOST_KEY_CHECKING = 'False'
   }
-environment {
-  ANSIBLE_HOST_KEY_CHECKING = 'False'
-}
 
   stages {
     stage('Terraform Apply') {
@@ -50,7 +48,6 @@ ${env.EC2_IP} ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/id_rsa
     stage('Run Ansible Playbook') {
       steps {
         sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml'
-        
       }
     }
   }
